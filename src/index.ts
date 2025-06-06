@@ -21,17 +21,16 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/todos')
     })
 
 // Create an Express application
-// and set up a simple route
-// to respond to GET requests at /ping
-// with a "pong" message
 const app = express()
 app.use(express.json())
 
+// to respond to GET requests at /ping with a "pong" message
 app.get('/ping', (_req, res) => {
     console.log('Received ping request')
     res.send('pong')
 })
 
+// and set up app routes for todos and user
 app.use('/api/todos', todosRouter)
 app.use('/api/user', userRouter);
 

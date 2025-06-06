@@ -1,4 +1,3 @@
-import { NewTodo } from "../types";
 import TodoModel from "../models/todo.model";
 
 export const fetchTodos = async (userId: string) => {
@@ -10,7 +9,6 @@ export const fetchTodos = async (userId: string) => {
             completed: false,
             userId: "0"
         }
-
         if (userId && todos) {
             const userTodos = todos.filter(todo => todo.userId === userId);
             if (userTodos.length === 0) {
@@ -25,8 +23,7 @@ export const fetchTodos = async (userId: string) => {
     }
 }
 
-export const addTodo = async (todo: NewTodo) => {
-    const { title, userId } = todo;
+export const addTodo = async (title: string, userId: string) => {
     if (!title || !userId) {
         return { status: 400, message: "Title and userId are required" };
     }
@@ -36,7 +33,6 @@ export const addTodo = async (todo: NewTodo) => {
         completed: false
     });
     await newTodo.save();
-
     return { status: 200, message: "Todo added successfully" };
 }
 

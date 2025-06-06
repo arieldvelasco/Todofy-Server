@@ -14,7 +14,8 @@ todosRouter.get("/fetch/:userId", async (req: Request, res: Response) => {
 })
 
 todosRouter.post("/add", async (req: Request, res: Response) => {
-    const result = await addTodo(req.body);
+    const { title, userId } = req.body;
+    const result = await addTodo(title, userId);
     res.status(result.status).json({ message: result.message });
 })
 

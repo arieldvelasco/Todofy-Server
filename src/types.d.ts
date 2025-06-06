@@ -5,12 +5,9 @@ export interface Todo {
     userId: string;
 }
 
-export interface NewTodo extends Omit<Todo, 'id'> { }
-
 export interface User {
+    id: string;
     userId: string;
     userName: string;
     email: string;
 }
-
-export interface NewUser extends Omit<User, 'id'> { }
