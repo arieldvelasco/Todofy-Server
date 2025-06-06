@@ -3,28 +3,37 @@ import { Request, Response } from "express";
 
 const todosRouter = require("express").Router();
 
-todosRouter.get("/fetch", async (_req: Request, res: Response) => {
-    res.status(200).json(await fetchTodos());
+todosRouter.get("/fetch/", (_req: Request, res: Response) => {
+    res.status(400).json({ error: "userId es requerido en la URL" });
+});
+
+todosRouter.get("/fetch/:userId", async (req: Request, res: Response) => {
+    const { userId } = req.params;
+    const { status, message, todos } = await fetchTodos(userId);
+    res.status(status).json({ message, todos });
 })
 
 todosRouter.post("/add", async (req: Request, res: Response) => {
-    res.status(200).json(await addTodo(req.body));
+    const result = await addTodo(req.body);
+    res.status(result.status).json({ message: result.message });
 })
 
 todosRouter.put("/update/", async (req: Request, res: Response) => {
-    const { id } = req.params;
-    const { title } = req.body;
-    res.status(200).json(await updateTodo(id, title));
+    const { id, title } = req.body;
+    const result = await updateTodo(id, title);
+    res.status(result.status).json({ message: result.message });
 })
 
 todosRouter.put("/complete/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
-    res.status(200).json(await completeTodo(id));
+    const result = await completeTodo(id);
+    res.status(result.status).json({ message: result.message });
 })
 
 todosRouter.delete("/delete/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
-    res.status(200).json(await deleteTodo(id));
+    const result = await deleteTodo(id);
+    res.status(result.status).json({ message: result.message });
 })
 
 export default todosRouter;

@@ -5,10 +5,6 @@ const todoSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    description: {
-        type: String,
-        required: true,
-    },
     completed: {
         type: Boolean,
         default: false,
@@ -22,6 +18,6 @@ const todoSchema = new mongoose.Schema({
     timestamps: true, // Automatically manage createdAt and updatedAt fields
 });
 
-const Todo = mongoose.model('Todo', todoSchema);
+const TodoModel = mongoose.model('Todo', todoSchema);
 
-export default Todo;
+export default TodoModel;

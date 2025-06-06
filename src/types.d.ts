@@ -8,11 +8,9 @@ export interface Todo {
 export interface NewTodo extends Omit<Todo, 'id'> { }
 
 export interface User {
-    id: string;
-    name: string;
+    userId: string;
+    userName: string;
     email: string;
-    password: string;
 }
 
 export interface NewUser extends Omit<User, 'id'> { }
-export interface NoSencitiveUser extends Omit<User, 'password'> { }
