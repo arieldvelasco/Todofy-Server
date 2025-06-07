@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import todosRouter from './routes/todos.route'
 import mongoose from 'mongoose'
 import userRouter from './routes/user.route'
+import cors from 'cors'
 
 // Load environment variables from .env file
 dotenv.config()
@@ -20,9 +21,15 @@ mongoose.connect(process.env.TODOFY_MMONGODB_URI || 'mongodb://localhost:27017/t
         process.exit(1)
     })
 
+const corsOptions = {
+    origin: process.env.TODOFY_MCORS_ORIGIN || '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}
+
 // Create an Express application
 const app = express()
 app.use(express.json())
+app.use(cors(corsOptions))
 
 // to respond to GET requests at /ping with a "pong" message
 app.get('/ping', (_req, res) => {

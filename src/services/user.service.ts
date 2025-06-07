@@ -1,10 +1,10 @@
 import UserModel from "../models/user.model";
 import { User } from "../types";
 
-export const fetchUser = async (userId: string) => {
+export const fetchUser = async (userMail: string) => {
     try {
         const users = await UserModel.find().lean();
-        const user = users.find(user => user.userId === userId);
+        const user = users.find(user => user.userMail === userMail);
         if (!user) {
             return { status: 404, message: "User not found", user: null };
         }
@@ -16,18 +16,17 @@ export const fetchUser = async (userId: string) => {
 
 export const createUser = async (useData: User) => {
     try {
-        const { userName, userId, email } = useData;
-        if (!userName || !userId || !email) {
+        const { userName, userMail } = useData;
+        if (!userName || !userMail) {
             return { status: 400, message: "Username, userId, and email are required" };
         }
-        const existingUser = await fetchUser(userId);
+        const existingUser = await fetchUser(userMail);
         if (existingUser.status === 200) {
             return { status: 400, message: "User already exists" };
         }
         const newUser = new UserModel({
             userName,
-            userId,
-            email
+            userMail
         });
         await newUser.save();
         return { status: 201, message: "User created successfully" };
@@ -36,13 +35,13 @@ export const createUser = async (useData: User) => {
     }
 }
 
-export const updateUser = async (userId: string, userName: string) => {
+export const updateUser = async (userMail: string, userName: string) => {
     try {
-        if (!userId || !userName) {
+        if (!userMail || !userName) {
             return { status: 400, message: "UserId, username, and email are required" };
         }
 
-        const result = await fetchUser(userId);
+        const result = await fetchUser(userMail);
         if (result.status !== 200) {
             return { status: result.status, message: result.message };
         }

@@ -7,7 +7,6 @@ export interface Todo {
 
 export interface User {
     id: string;
-    userId: string;
     userName: string;
-    email: string;
+    userMail: string;
 }

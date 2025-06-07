@@ -5,11 +5,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    userId: {
-        type: String,
-        required: true,
-    },
-    email: {
+    userMail: {
         type: String,
         required: true,
         unique: true, // Ensure email is unique

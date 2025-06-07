@@ -15,8 +15,8 @@ userRouter.get("/fetch/:userId", async (req: Request, res: Response) => {
 
 userRouter.post('/create/', async (req: Request, res: Response) => {
     const userData = req.body;
-    if (!userData.userName || !userData.userId || !userData.email) {
-        res.status(400).json({ error: "Username, userId, and email are required" });
+    if (!userData.userName || !userData.userMail) {
+        res.status(400).json({ error: "Username, and email are required" });
     }
     const result = await createUser(userData);
     res.status(result.status).json({ message: result.message });
