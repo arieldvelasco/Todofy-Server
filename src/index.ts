@@ -9,9 +9,9 @@ import userRouter from './routes/user.route'
 dotenv.config()
 
 // Set the port from environment variables or default to 3000
-const port = process.env.PORT || 3000
+const port = process.env.TODOFY_MPORT || 3000
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/todos')
+mongoose.connect(process.env.TODOFY_MMONGODB_URI || 'mongodb://localhost:27017/todos')
     .then(() => {
         console.log('Connected to MongoDB')
     })
